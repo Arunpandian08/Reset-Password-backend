@@ -19,7 +19,8 @@ const mail = async (email) => {
             from: process.env.EMAIL_ID,
             to: email,
             subject: "Password Reset Token with Link",
-            html: `<p>Your password reset token is: ${token}</p><p>Click URL<a href="${frontendURL}?token=${token}">${frontendURL}?token=${token}</a> to reset your password</p>`
+            html: `<p>Your password reset token is: ${token}</p><p>Click URL<a href="${frontendURL}?token=${token}">${frontendURL}?token=${token}</a> to reset your password</p><br/>
+            <h6>If the above link isn't work ,then you will check below in forget form to move reset link </h6>`
         };
         const info = await transport.sendMail(mailOptions);
         return { success: true, message: 'Email sent successfully' }; // Email sent successfully
