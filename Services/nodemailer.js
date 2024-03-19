@@ -10,7 +10,7 @@ const mail = async (email) => {
     // Save the token in the database
     await registerUser.updateOne({ email }, { resetToken: token });
     // Update with your frontend reset password URL
-    const frontendURL = `http://localhost:5173/resetpassword/${encodeURIComponent(token)}`; 
+    const frontendURL = `https://resetpassword-by-arun.netlify.app/resetpassword/${encodeURIComponent(token)}`; 
     try {
         const transport = nodemailer.createTransport({
             service: 'Gmail',
@@ -23,7 +23,7 @@ const mail = async (email) => {
             from: process.env.EMAIL_ID,
             to: email,
             subject: "Password Reset Token with Link",
-            html: `<p>Your password reset token is: ${token}</p><p>Click<a href="${frontendURL}">here</a> to reset your password </p>`
+            html: `<p>Your password reset token is: ${token}</p><p>Click <a href="${frontendURL}"><strong>here</strong></a> to reset your password </p>`
         };
         const info = await transport.sendMail(mailOptions);
         return { success: true, message: 'Email sent successfully' }; // Email sent successfully
