@@ -6,12 +6,15 @@ import bcrypt from "bcryptjs/dist/bcrypt.js";
 export const forGetPassword = async(req,res)=>{
     const {email}=req.body // receiving email in body 
     try {
-        const user = await registerUser.findOne({ email }); // finding email from db collection
+        // finding email from db collection
+        const user = await registerUser.findOne({ email }); 
         if (!user) { 
-          return res.status(401).json({ msg: "please Enter a Valid Email" });
+          return res.status(401).json({ msg: "User not found" });
         }
-        const result = await mail(email) // using mail function to send mail
-        res.status(200).json({msg:"please check your mail",result}); // Send response after receiving result
+        // using mail function to send mail
+        const result = await mail(email) 
+        // Send response after receiving result
+        res.status(200).json({msg:"please check your mail",result}); 
     } catch (error) {
         console.error('Error sending reset token:', error);
         res.status(500).json({ error: 'Failed to send reset token to email' });
@@ -21,7 +24,7 @@ export const forGetPassword = async(req,res)=>{
 export const passwordReset = async (req, res) => {
     const { email, newPassword, conformPassword } = req.body; //receiving needed keys from body 
     try {
-        const user = await registerUser.findOne({ email }); // finding email from db collection
+        const user = await registerUser.findOne({ email }); //finding email from db collection
         if (!user) {
             return res.status(404).send("User not found");
         }

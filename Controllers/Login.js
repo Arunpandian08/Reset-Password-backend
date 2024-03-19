@@ -7,7 +7,7 @@ export const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await registerUser.findOne({ email });
     if (!user) {
-      return res.status(401).json({ msg: "please Enter a Valid Email" });
+      return res.status(401).json({ msg: "User not found" });
     }
     const matchingPassword = await bcrypt.compare(password, user.password);
     if (!matchingPassword) {
